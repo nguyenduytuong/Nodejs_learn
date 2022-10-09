@@ -5,8 +5,8 @@ const Course = new Schema({
     name: { type: String },
     description: { type: String },
     image: { type: String },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
+},{
+    timestamps:true,
 });
 
 const Courses = mongoose.model('Course', Course);
