@@ -2,19 +2,27 @@
 // const newsRouter = require('./news');
 import { Courses } from '../app/models/Course.js';
 import { mutipleMongooseToObject } from '../util/mongooso.js';
+import { MongooseToObject } from '../util/mongoosoToArray.js';
 
 function route(app) {
     // app.use('/news',newsRouter);
 
 
     app.get('/', (req, res, next) => {
-        // res.render('home');
-
         Courses.find({})
-            .then(courses => {
+            .then(course => {
                 res.render('home', {
-                    courses: mutipleMongooseToObject(courses)
+                    courses: mutipleMongooseToObject(course)
                 })
+            })
+            .catch(next);
+    })
+
+    app.get('/courses/:slug', (req, res, next) => {
+        Courses.findOne({ id: req.params.id })
+            .then(course => {
+                // res.json(course)
+                res.render('courses/show', { course: MongooseToObject(course) })
             })
             .catch(next);
     })
