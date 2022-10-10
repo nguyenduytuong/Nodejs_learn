@@ -1,13 +1,8 @@
-// import { Courses } from '../app/models/Course.js';
-// import { mutipleMongooseToObject } from '../util/mongooso.js';
+import { courseController } from '../app/controllers/CourseController.js';
+import express from 'express';
+const router = express.Router();
 
 
-// function route(app) {
-//     // app.use('/news',newsRouter);
+router.get('/:slug', courseController.show);
 
-//     app.get('/courses/:slug', (req, res) => {
-//         res.render('search');
-//     })
-// }
-
-// export { route };
+export default { router };
