@@ -2,9 +2,9 @@ function mutipleMongooseToObject(mongooseArrays) {
     return mongooseArrays ? mongooseArrays.map(mongooseArray => mongooseArray.toObject()) : mongooseArrays.toObject
 }
 
-// export { mutipleMongooseToObject : function(){
-
-// } };
+function mongooseToObject(mongoose) {
+    return mongoose ? mongoose.toObject() : mongoose;
+}
 
 // const mutipleMongooseToObject = {
 //     mutipleMongooseToObject: function (mongooseArrays) {
@@ -15,4 +15,4 @@ function mutipleMongooseToObject(mongooseArrays) {
 //     }
 // }
 
-export { mutipleMongooseToObject };
+export { mutipleMongooseToObject, mongooseToObject };
