@@ -1,11 +1,10 @@
-// import { newsRouter } from './news.js';
-// const newsRouter = require('./news');
+import newsRouter from './news.js';
 import { Courses } from '../app/models/Course.js';
 import { mutipleMongooseToObject } from '../util/mongooso.js';
 import { MongooseToObject } from '../util/mongoosoToArray.js';
 
 function route(app) {
-    // app.use('/news',newsRouter);
+    app.get('/news',newsRouter.router); 
 
 
     app.get('/', (req, res, next) => {

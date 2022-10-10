@@ -4,5 +4,5 @@ class NewsController {
         res.render('news');
     }
 }
-
-module.exports = new NewsController;
+const newsController = new  NewsController()
+export { newsController };
