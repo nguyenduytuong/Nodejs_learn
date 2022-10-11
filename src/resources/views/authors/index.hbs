@@ -1,0 +1,32 @@
+<div class="mt-4">
+    <a href="/authors/create" class="btn btn-info mb-4" role="button">Add Author</a>
+  <div class="row">
+    <table class="table">
+         <caption>List author</caption>
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Name</th>
+          <th scope="col">BirthDate</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each authors}}
+          <tr>
+            <th>A</th>
+            <td>{{this.name}}</td>
+            <td>{{this.birthdate}}</td>
+            <td>{{this.gender}}</td>
+            <td>
+                <a href="/authors/{{this.name}}" class="btn btn-success" role="button">Views</a>
+                <a href="#" class="btn ml-1 btn-warning" role="button">Edit</a>
+                <a href="#" class="btn ml-1 btn-danger" role="button">Delete</a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
