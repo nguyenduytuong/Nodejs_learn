@@ -2,8 +2,9 @@ import express from 'express';
 import morgan from "morgan";
 import { engine } from 'express-handlebars';
 import { route } from './routes/index.js';
-import  { connect }  from './config/db/index.js';
+import { connect } from './config/db/index.js';
 import bodyParser from 'body-parser';
+import moment from 'moment';
 const app = express();
 const port = 3000;
 
@@ -14,7 +15,15 @@ connect();
 app.use(morgan('combined'));
 
 app.engine('hbs', engine({
-  extname : ".hbs"
+  extname: ".hbs",
+  helpers: {
+    sum: (a, b) => a + b,
+    // formatDate: (dateString) => {
+    //   return new engine.SafeString(
+    //     moment(dateString).format("MMM D").toUpperCase()
+    //   );
+    // }
+  },
 }));
 
 app.set('view engine', 'hbs');

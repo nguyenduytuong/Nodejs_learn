@@ -14,14 +14,14 @@ class AuthorController {
             .catch(next);
     }
 
-    index(req , res, next){
+    index(req, res, next) {
         Authors.find({})
-        .then(author => {
-            res.render('authors/index', {
-                authors: mutipleMongooseToObject(author)
+            .then(author => {
+                res.render('authors/index', {
+                    authors: mutipleMongooseToObject(author)
+                })
             })
-        })
-        .catch(next);
+            .catch(next);
     }
 
     create(req, res, next) {
@@ -31,12 +31,18 @@ class AuthorController {
     store(req, res, next) {
         const formData = req.body;
         const author = new Authors(formData);
-        const save = author.save();
-        if (save) {
-            res.redirect('/authors/index');
-        } else {
-            res.send('no');
-        }
+        author.save()
+            .then(() => res.redirect('/authors/index'))
+            .catch(error => { });
+    }
+    edit(req, res, next) {
+        Authors.findById(req.params.id)
+            .then(author =>
+                res.render('authors/edit', {
+                    authors: mongooseToObject(author)
+                })
+            )
+            .catch(next)
     }
 }
 
