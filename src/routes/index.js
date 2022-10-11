@@ -1,11 +1,9 @@
 import newsRouter from './news.js';
-import siteRouter from './site.js';
-import coursesRouter from './courses.js';
+import authorsRouter from './authors.js';
 
 function route(app) {
     app.use('/news',newsRouter.router); 
-    app.use('/courses',coursesRouter.router); 
-    app.use('/',siteRouter.router);
+    app.use('/authors',authorsRouter.router);
 }
 
 export { route };
