@@ -15,13 +15,13 @@
       <tbody>
         {{#each authors}}
           <tr>
-            <th>A</th>
+            <th>{{sum @index 1}}</th>
             <td>{{this.name}}</td>
             <td>{{this.birthdate}}</td>
             <td>{{this.gender}}</td>
             <td>
                 <a href="/authors/{{this.name}}" class="btn btn-success" role="button">Views</a>
-                <a href="#" class="btn ml-1 btn-warning" role="button">Edit</a>
+                <a href="/authors/{{this._id}}/edit" class="btn ml-1 btn-warning" role="button">Edit</a>
                 <a href="#" class="btn ml-1 btn-danger" role="button">Delete</a>
             </td>
           </tr>
