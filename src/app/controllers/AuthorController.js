@@ -29,16 +29,14 @@ class AuthorController {
     }
 
     store(req, res, next) {
-        // let formData = req;
-        // console.log(formData);
-        // let author = new Authors(formData);
-        // let save = author.save();
-        // if (save) {
-        //     res.redirect('/home');
-        // } else {
-        //     res.send('no');
-        // }
-        return " depzai"
+        const formData = req.body;
+        const author = new Authors(formData);
+        const save = author.save();
+        if (save) {
+            res.redirect('/authors/index');
+        } else {
+            res.send('no');
+        }
     }
 }
 
