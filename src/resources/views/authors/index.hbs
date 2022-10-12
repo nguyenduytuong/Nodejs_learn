@@ -20,9 +20,9 @@
             <td>{{this.birthdate}}</td>
             <td>{{this.gender}}</td>
             <td>
-                <a href="/authors/{{this.name}}" class="btn btn-success" role="button">Views</a>
+                <a href="/authors/{{this._id}}" class="btn btn-success" role="button">Views</a>
                 <a href="/authors/{{this._id}}/edit" class="btn ml-1 btn-warning" role="button">Edit</a>
-                <a href="#" class="btn ml-1 btn-danger" role="button">Delete</a>
+                <a href="" data-id="{{this._id}}" class="btn ml-1 btn-danger" data-toggle="modal" data-target="#exampleModal" role="button">Delete</a>
             </td>
           </tr>
         {{/each}}
@@ -30,3 +30,48 @@
     </table>
   </div>
 </div>
+
+
+
+
+
+<div id="exampleModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Author ????</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>???????????????????????</p>
+      </div>
+      <div class="modal-footer">
+        <button id="bth-delete" type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="POST" name="delete-form"></form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var recipient;
+     var deleteForm = document.forms['delete-form'];
+     var btnDelete = document.getElementById('bth-delete');
+  $('#exampleModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    recipient = button.data('id');
+    console.log(recipient)
+  });
+
+
+  btnDelete.onclick = function() {
+  deleteForm.action = '/authors/'+ recipient +'?_method=DELETE';
+  deleteForm.submit();
+}
+  })
+</script>
