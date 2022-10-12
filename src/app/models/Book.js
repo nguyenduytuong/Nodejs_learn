@@ -1,7 +1,3 @@
-import {
-    Decimal128,
-    Int32
-} from "bson";
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
@@ -13,13 +9,14 @@ const Book = new Schema({
         type: String
     },
     pagecount: {
-        type: Int32
+        type: Number
     },
     price:{
-        type:Decimal128
+        type:Number
     },
     author: {
-        // type: Date
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Author'
     },
     coverImage: {
         type: String
