@@ -1,0 +1,82 @@
+<div class="mt-4">
+    <a href="/books/create" class="btn btn-info mb-4" role="button">Add Books</a>
+  <div class="row">
+    <table class="table">
+         <caption>List books</caption>
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Page Count</th>
+          <th scope="col">Price</th>
+          <th scope="col">Author</th>
+          <th scope="col">Image</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each books}}
+          <tr>
+            <th>{{sum @index 1}}</th>
+            <td>{{this.title}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.pagecount}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.author}}</td>
+            <td><img src="{{this.coverImage}}" alt=""></td>
+            <td>
+                <a href="/books/{{this._id}}" class="btn btn-success" role="button">Views</a>
+                <a href="/books/{{this._id}}/edit" class="btn ml-1 btn-warning" role="button">Edit</a>
+                <a href="" data-id="{{this._id}}" class="btn ml-1 btn-danger" data-toggle="modal" data-target="#exampleModal" role="button">Delete</a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+
+<div id="exampleModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Author ????</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>???????????????????????</p>
+      </div>
+      <div class="modal-footer">
+        <button id="bth-delete" type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="POST" name="delete-form"></form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var recipient;
+     var deleteForm = document.forms['delete-form'];
+     var btnDelete = document.getElementById('bth-delete');
+  $('#exampleModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    recipient = button.data('id');
+  });
+
+
+  btnDelete.onclick = function() {
+  deleteForm.action = '/books/'+ recipient +'?_method=DELETE';
+  deleteForm.submit();
+}
+  })
+</script>
