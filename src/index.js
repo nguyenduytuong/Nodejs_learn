@@ -5,10 +5,12 @@ import { route } from './routes/index.js';
 import { connect } from './config/db/index.js';
 import bodyParser from 'body-parser';
 import moment from 'moment';
+import  methodOverride  from 'method-override';
 const app = express();
 const port = 3000;
 
 app.use(bodyParser.urlencoded())
+app.use(methodOverride('_method'))
 route(app);
 app.use(express.static('./src/public'));
 connect();

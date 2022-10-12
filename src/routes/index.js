@@ -1,4 +1,4 @@
-import newsRouter from './news.js';
+import newsRouter from './books.js';
 import authorsRouter from './authors.js';
 
 function route(app) {
