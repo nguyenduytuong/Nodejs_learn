@@ -1,5 +1,6 @@
 import { authorController } from '../app/controllers/AuthorController.js';
 import express from 'express';
+import multer from 'multer';
 const router = express.Router();
 
 router.delete('/:id', authorController.delete);

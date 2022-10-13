@@ -4,6 +4,7 @@ import { engine } from 'express-handlebars';
 import { route } from './routes/index.js';
 import { connect } from './config/db/index.js';
 import bodyParser from 'body-parser';
+import multer from 'multer';
 import moment from 'moment';
 import  methodOverride  from 'method-override';
 const app = express();
@@ -20,11 +21,10 @@ app.engine('hbs', engine({
   extname: ".hbs",
   helpers: {
     sum: (a, b) => a + b,
-    // formatDate: (dateString) => {
-    //   return new engine.SafeString(
-    //     moment(dateString).format("MMM D").toUpperCase()
-    //   );
-    // }
+    formatDate: (date, format) => {
+      let mmnt = moment(date);
+      return mmnt.format(format);
+    }
   },
 }));
 

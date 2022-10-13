@@ -1,7 +1,7 @@
 import { Authors } from '../models/Author.js';
 import { mongooseToObject } from '../../util/mongooso.js';
 import { mutipleMongooseToObject } from '../../util/mongooso.js';
-
+import mongoose from 'mongoose';
 
 
 class AuthorController {
@@ -49,8 +49,12 @@ class AuthorController {
     }
 
     update(req, res, next) {
-        // res.json(req.body)
-        Authors.updateOne({ id: req.params.id }, req.body)
+        
+        const ObjectId = mongoose.Types.ObjectId;
+        const id = req.params.id.trim();
+        const bdate =  new Date(req.body.birthdate).toISOString();
+        res.json(bdate)
+        Authors.updateOne({ '_id':new ObjectId(id) }, req.body)
             .then(() => res.redirect('/authors/index'))
             .catch(next);
     }
