@@ -17,8 +17,14 @@
           <tr>
             <th>{{sum @index 1}}</th>
             <td>{{this.name}}</td>
-            <td>{{this.birthdate}}</td>
-            <td>{{this.gender}}</td>
+            <td>{{formatDate this.birthdate "MM-DD-YYYY"}}</td>
+            <td>
+              {{#if this.gender}}
+                <p>Female</p>
+              {{else}}
+                <p>Male</p>
+              {{/if}}
+            </td>
             <td>
                 <a href="/authors/{{this._id}}" class="btn btn-success" role="button">Views</a>
                 <a href="/authors/{{this._id}}/edit" class="btn ml-1 btn-warning" role="button">Edit</a>
