@@ -4,6 +4,7 @@ import { Authors } from '../models/Author.js';
 import { mongooseToObject } from '../../util/mongooso.js';
 import { mutipleMongooseToObject } from '../../util/mongooso.js';
 import mongoose from 'mongoose';
+import authors from '../../routes/authors.js';
 class BooksController {
 
     show(req, res, next) {
@@ -38,7 +39,7 @@ class BooksController {
 
     store(req, res, next) {
         const formData = req.body;
-        formData.coverImage = req.file.filename
+        // formData.coverImage = req.file.filename
         const books = new Books(formData);
         books.save()
             .then(() => res.redirect('/books/index'))
@@ -46,14 +47,23 @@ class BooksController {
     }
 
     async edit(req, res, next) {
-        Books.findById(req.params.id)
+        // Books.findById(req.params.id)
         // const user = await Authors.find({})
+        Books.aggregate([{
+                    $lookup:{
+                        from: "authors",
+                        localField: "author",
+                        foreignField: "_id",
+                        as: "authors"
+                    }
+                }
+            ])
             .then(book =>
-                // res.json(user)
-                res.render('books/edit', {
-                    books: mongooseToObject(book),
-                    // users: mutipleMongooseToObject(user)
-                })
+                res.json(book)
+                // res.render('books/edit', {
+                //     books: mongooseToObject(book),
+                //     // users: mutipleMongooseToObject(user)
+                // })
             )
             .catch(next)
     }
