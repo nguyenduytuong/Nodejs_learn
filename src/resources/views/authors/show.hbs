@@ -9,11 +9,15 @@
         </tr>
         <tr>
           <th scope="row">BirthDate</th>
-          <td> {{authors.birthdate}}</td>
+          <td> {{formatDate authors.birthdate "MM-DD-YYYY"}}</td>
         </tr>
         <tr>
           <th scope="row">Gender</th>
-          <td>{{authors.gender}}</td>
+          <td>{{#if authors.gender}}
+                <p>Female</p>
+              {{else}}
+                <p>Male</p>
+              {{/if}}</td>
         </tr>
       </tbody>
     </table>
