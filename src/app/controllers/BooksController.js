@@ -4,7 +4,7 @@ import { Authors } from '../models/Author.js';
 import { mongooseToObject } from '../../util/mongooso.js';
 import { mutipleMongooseToObject } from '../../util/mongooso.js';
 import mongoose from 'mongoose';
-import authors from '../../routes/authors.js';
+import { a } from '../../util/mongooso.js';
 class BooksController {
 
     show(req, res, next) {
@@ -20,8 +20,19 @@ class BooksController {
     }
 
     index(req, res, next) {
+        // Books.aggregate([
+        //     {
+        //         $lookup:{
+        //             from: "authors",
+        //             localField: "author",
+        //             foreignField: "_id",
+        //             as: "authors"
+        //         }
+        //     }
+        //     ])
         Books.find({})
             .then(book => {
+                // res.json(book)
                 res.render('books/index', {
                     books: mutipleMongooseToObject(book)
                 })
@@ -39,7 +50,7 @@ class BooksController {
 
     store(req, res, next) {
         const formData = req.body;
-        // formData.coverImage = req.file.filename
+        formData.coverImage = req.file.filename
         const books = new Books(formData);
         books.save()
             .then(() => res.redirect('/books/index'))
@@ -47,9 +58,17 @@ class BooksController {
     }
 
     async edit(req, res, next) {
-        // Books.findById(req.params.id)
-        // const user = await Authors.find({})
-        Books.aggregate([{
+        const ObjectId = mongoose.Types.ObjectId;
+        const author =  await Authors.find({})
+        Books.aggregate([
+            {
+                $match: {
+                    _id: {
+                        $eq: new ObjectId(req.params.id)
+                    }
+                } 
+            },
+            {
                     $lookup:{
                         from: "authors",
                         localField: "author",
@@ -58,20 +77,22 @@ class BooksController {
                     }
                 }
             ])
-            .then(book =>
-                res.json(book)
-                // res.render('books/edit', {
-                //     books: mongooseToObject(book),
-                //     // users: mutipleMongooseToObject(user)
-                // })
+            .then(book => {
+                res.render('books/edit', {
+                    books: a(book),
+                    authors:mutipleMongooseToObject(author)
+                })
+            }
             )
             .catch(next)
     }
 
     update(req, res, next) {
+        const formData = req.body;
+        formData.coverImage = req.file.filename
         const ObjectId = mongoose.Types.ObjectId;
         const id = req.params.id.trim();
-        Books.updateOne({ '_id':new ObjectId(id) }, req.body)
+        Books.updateOne({ '_id':new ObjectId(id) }, formData)
             .then(() => res.redirect('/books/index'))
             .catch(next);
     }

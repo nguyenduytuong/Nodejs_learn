@@ -17,7 +17,7 @@ const fileStorageEngine = multer.diskStorage({
 const upload = multer({storage: fileStorageEngine})
 
 
-router.put('/:id', booksController.update);
+router.put('/:id',upload.single('coverImage'), booksController.update);
 router.get('/:id/edit', booksController.edit);
 router.delete('/:id', booksController.delete);
 router.post('/store',upload.single('coverImage'), booksController.store);
